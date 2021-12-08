@@ -8,6 +8,29 @@ function App() {
   const[name, setName] = useState("");
   const[bmi, setBMI] = useState(0);
 
+  const [hospitalViewList, setHospitalList] = useState([])
+  const [doctorViewList, setDoctorList] = useState([])
+  const [patientViewList, setPatientList] = useState([])
+
+  const getHospitalView = () => {
+    Axios.get("http://localhost:3001/hosView").then((response) =>{
+      console.log(response);
+    })
+  }
+
+  const getDoctorView = () => {
+    Axios.get("http://localhost:3001/docView").then((response) =>{
+      console.log(response);
+    })
+  }
+
+  const getPatientView = () => {
+    Axios.get("http://localhost:3001/patView").then((response) =>{
+      console.log(response);
+    })
+  }
+
+
   return (
     <div className="App">
       <h1>Health Management Application</h1>
@@ -32,6 +55,17 @@ function App() {
 
         <button>Submit</button>
       </div>
+
+        <button onClick={getHospitalView}>Hospital View</button>
+         {hospitalViewList.map((val, key) => { //add rest of info
+           return <div>  
+             <h3>val.DoctorName</h3> 
+           </div> 
+         })}
+
+        <button onClick={getDoctorView}>Doctor View</button>
+        <button onClick={getPatientView}>Patient View</button>
+    
       
     </div>
   );

@@ -27,6 +27,47 @@ app.post('/create', (req, res) => {
     );
 })
 
+app.get('/hosView', (req, res) =>{
+    db.query("SELECT * FROM DOCTORS", (err, result) => {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.send(result);
+        }
+    })
+    db.query("SELECT * FROM PATIENTS", (err, result) => {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.send(result);
+        }
+    })
+})
+
+app.get('/docView', (req, res) =>{
+    db.query("SELECT * FROM PATIENTS", (err, result) => {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.send(result);
+        }
+    })
+})
+
+app.get('/patView', (req, res) =>{
+    db.query("SELECT * FROM PATIENTS ORDER BY RAND() LIMIT 10", (err, result) => {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.send(result);
+        }
+    })
+})
+
 app.listen(3001, () => {
     console.log("Running on port 3001");
 });
