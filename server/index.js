@@ -2,6 +2,10 @@ const e = require("express");
 const express = require("express")
 const app = express()
 const mysql = require('mysql')
+const cors = require('cors')
+
+app.use(cors());
+app.use(express.json());
 
 const db = mysql.createConnection({
     user: 'root',
@@ -11,12 +15,12 @@ const db = mysql.createConnection({
 });
 
 app.post('/create', (req, res) => {
-    const name = req.body.name
-    const bmi = req.body.age
+    const PatientName = req.body.PatientName
+    const PatientBMI = req.body.PatientBMI
 
     db.query(
-        'INSERT INTO PATIENT (PatientName, PatientBMI) VALUES (?,?)',
-        (PatientName, PatientBMI),
+        "INSERT INTO PATIENT (PatientName, PatientBMI) VALUES (?,?)",
+        [PatientName, PatientBMI],
         (err, result) => {
             if (err) {
                 console.log(err)
@@ -25,6 +29,16 @@ app.post('/create', (req, res) => {
             }
         }
     );
+})
+
+app.get('/patients', (req, res) => {
+    db.query("SELECT * FROM PATIENT", (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
 })
 
 app.listen(3001, () => {

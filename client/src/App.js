@@ -5,8 +5,31 @@ import Axios from 'axios'
 
 function App() {
 
-  const[name, setName] = useState("");
-  const[bmi, setBMI] = useState(0);
+  const[PatientName, setName] = useState("");
+  const[PatientBMI, setBMI] = useState(0);
+
+  const [PatientList, setPatientList] = useState([]);
+
+  const addPatient = () => {
+    Axios.post('http://localhost:3001/create', {
+      PatientName: PatientName,
+      PatientBMI: PatientBMI
+    }).then(()=> {
+      setPatientList([...PatientList,
+        {
+        PatientName: PatientName,
+        PatientBMI: PatientBMI
+        }
+      ])
+      console.log("Success");
+    });
+  };
+
+const getPatients = () => {
+  Axios.get('http://localhost:3001/patients').then((response)=> {
+      setPatientList(response.data)
+    });
+}
 
   return (
     <div className="App">
@@ -30,9 +53,19 @@ function App() {
         }}
         />
 
-        <button>Submit</button>
+        <button onClick={addPatient}>Submit</button>
       </div>
-      
+      <div className="patients">
+      <button onClick={getPatients}>Show Patients</button>
+      {PatientList.map((val,key) => {
+        return (
+          <div className="patient">
+             <h3>Patient's Name: {val.PatientName}</h3>
+             <h3>Patient's BMI: {val.PatientBMI}</h3>
+          </div>
+        );
+      })}
+    </div>
     </div>
   );
 }

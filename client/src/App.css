@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form{
@@ -7,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .form input{
@@ -14,4 +17,34 @@
   height: 60px;
   margin: 10px;
   font-size: 25px;
+}
+
+button {
+  width: 320px;
+  height: 50px;
+  margin-top: 15px;
+  font-size: 15px;
+}
+.patients {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.patient {
+  width: 700px;
+  height: auto;
+  border: 1px solid black;
+  margin: 10px;
+  display: flex;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.patient h3 {
+  margin: 20px
 }
