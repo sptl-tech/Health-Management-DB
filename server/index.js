@@ -39,8 +39,8 @@ app.get('/patients', (req, res) => {
         } else {
             res.send(result)
         }
-    }
-);
+    })
+})
 
 app.get('/hosView', (req, res) =>{
     db.query("SELECT * FROM DOCTORS", (err, result) => {
