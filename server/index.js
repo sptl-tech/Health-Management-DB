@@ -17,10 +17,11 @@ const db = mysql.createConnection({
 app.post('/create', (req, res) => {
     const PatientName = req.body.PatientName
     const PatientBMI = req.body.PatientBMI
+    const PatientAge = req.body.PatientAge
 
     db.query(
-        "INSERT INTO PATIENT (PatientName, PatientBMI) VALUES (?,?)",
-        [PatientName, PatientBMI],
+        "INSERT INTO PATIENT (PatientName, PatientBMI, PatientAge) VALUES (?,?,?)",
+        [PatientName, PatientBMI, PatientAge],
         (err, result) => {
             if (err) {
                 console.log(err)

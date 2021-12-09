@@ -1,42 +1,45 @@
 import './App.css';
-import React from "react";
-import { useState } from "react";
-import Axios from 'axios'
+import React, { useState } from "react";
+import axios from 'axios'
 
-function App() {
+ const App = () => {
 
   const[PatientName, setName] = useState("");
   const[PatientBMI, setBMI] = useState(0);
+  const[PatientAge, setAge] = useState(0);
+
 
   const [PatientList, setPatientList] = useState([]);
 
   const addPatient = () => {
-    Axios.post('http://localhost:3001/create', {
+    axios.post('http://localhost:3001/create', {
       PatientName: PatientName,
-      PatientBMI: PatientBMI
+      PatientBMI: PatientBMI,
+      PatientAge: PatientAge
     }).then(()=> {
       setPatientList([...PatientList,
         {
         PatientName: PatientName,
-        PatientBMI: PatientBMI
+        PatientBMI: PatientBMI,
+        PatientAge: PatientAge
         }
       ])
       console.log("Success");
     });
   };
 
-const getPatients = () => {
-  Axios.get('http://localhost:3001/patients').then((response)=> {
-      setPatientList(response.data)
-    });
-}
+  const getPatients = () => {
+    axios.get('http://localhost:3001/patients').then((response)=> {
+        setPatientList(response.data)
+      });
+  }
 
   return (
     <div className="App">
       <h1>Health Management Application</h1>
 
       <div className = "form"> 
-        <label>Patient Name </label>
+        <label>Patient's Name </label>
         <input 
           type = "text"
           onChange={(event) => {
@@ -45,11 +48,18 @@ const getPatients = () => {
         />
         {/* <label>Patient ID </label>
         <input type = "text" name = "patientID" /> */}
-        <label>Patient BMI </label>
+        <label>Patient's BMI </label>
         <input 
           type = "number" 
           onChange={(event) => {
             setBMI(event.target.value);
+        }}
+        />
+        <label>Patient's Age </label>
+        <input 
+          type = "number" 
+          onChange={(event) => {
+            setAge(event.target.value);
         }}
         />
 
@@ -62,6 +72,7 @@ const getPatients = () => {
           <div className="patient">
              <h3>Patient's Name: {val.PatientName}</h3>
              <h3>Patient's BMI: {val.PatientBMI}</h3>
+             <h3>Patient's Age: {val.PatientAge}</h3>
           </div>
         );
       })}
