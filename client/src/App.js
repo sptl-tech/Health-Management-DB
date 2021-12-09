@@ -34,6 +34,25 @@ import axios from 'axios'
       });
   }
 
+  const getHospitalView = () => {
+    axios.get("http://localhost:3001/hosView").then((response) =>{
+      console.log(response);
+    })
+  }
+
+  const getDoctorView = () => {
+    axios.get("http://localhost:3001/docView").then((response) =>{
+      console.log(response);
+    })
+  }
+
+  const getPatientView = () => {
+    axios.get("http://localhost:3001/patView").then((response) =>{
+      console.log(response);
+    })
+  }
+
+
   return (
     <div className="App">
       <h1>Health Management Application</h1>
